@@ -36,7 +36,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
         ### self.request is the TCP socket connected to the client which is the method + URL
         #### what is request method  file url
         self.data = self.request.recv(1024).decode("utf-8").strip()
-        print ("Got a request of: %s\n" % self.data)
+        #print ("Got a request of: %s\n" % self.data)
         ### sendall --- either all data has been sent or an error occured 
         
         ########## 
