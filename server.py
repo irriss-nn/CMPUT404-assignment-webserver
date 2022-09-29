@@ -41,10 +41,10 @@ class MyWebServer(socketserver.BaseRequestHandler):
         
         ########## 
         firstline= self.data.split('\n')[0]#
-        print('firstline '+firstline)
+        #print('firstline '+firstline)
         method = firstline.split(' ')[0]
         fileUrl = firstline.split(' ')[1]
-        print('fileUrl '+fileUrl)
+        #print('fileUrl '+fileUrl)
         
         #no css, html or '/', ------> redirect
 
@@ -57,6 +57,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 try: 
                     file = open("www/" + fileUrl + "index.html")
                     self.request.sendall(bytearray("HTTP/1.1 200 OK\nContent-Type: text/html\n\n" + file.read(),'utf-8'))
+                    file.close()
                 except:
                      self.request.sendall(bytearray("HTTP/1.1 404 Not Found\n\n404 Not Found",'utf-8'))
                 return
@@ -67,8 +68,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
             urlSplit = fileUrl.split('.')
 
             if len(urlSplit) ==2:
-                print("urlsplit") 
-                print(urlSplit)
+                #print("urlsplit") 
+                #print(urlSplit)
                 if urlSplit[-1] not in ["css","html"]:
                     self.request.sendall(bytearray("HTTP/1.1 404 Not Found\n\n404 Not Found",'utf-8'))
                     return 
@@ -76,6 +77,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
                     try:
                         file = open("www" + fileUrl)#ope
                         self.request.sendall(bytearray("HTTP/1.1 200 OK\nContent-Type: text/css\n\n" + file.read(),'utf-8'))
+                        file.close()
                     except:
                         self.request.sendall(bytearray("HTTP/1.1 404 Not Found\n\n404 Not Found",'utf-8'))
                         return
@@ -83,6 +85,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
                     try:
                         file = open("www" + fileUrl)#ope
                         self.request.sendall(bytearray("HTTP/1.1 200 OK\nContent-Type: text/html\n\n" + file.read(),'utf-8'))
+                        file.close()
                     except:
                         self.request.sendall(bytearray("HTTP/1.1 404 Not Found\n\n404 Not Found",'utf-8'))
                         return
@@ -90,8 +93,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
             #redirect
             else:
                 if len(urlSplit) == 1:
-                    print("urlSplitttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
-                    print(urlSplit[-1])
+                    #print("urlSplitttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+                    #print(urlSplit[-1])
                     ###check whether in the www directory
                     if "deep" in urlSplit[-1]:
                         new = "www/" + fileUrl + "/index.html"
@@ -133,7 +136,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
         #### check get necessary????
         ####send sth
         #self.request.sendall(bytearray("HTTP/1.1 200 OK\nContent-Type: text/html\n\n" + file.read(),'utf-8'))
-        file.close()
+        #file.close()
         ### what does the formal filepath look like
     
 
